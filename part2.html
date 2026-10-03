@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phần 2 - Form Đăng Ký Học Viên | CodeGym</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --primary-light: #f0f9ff;
+            --primary-border: #bae6fd;
+            --accent: #6366f1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow-card: 0 12px 36px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 30%, #f8fafc 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1rem;
+        }
+
+        .nav-header {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 18px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 760px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            overflow: hidden;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            padding: 2.2rem 2.5rem 2rem;
+            color: #ffffff;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 5px 14px;
+            border-radius: 9999px;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .card-subtitle {
+            font-size: 0.925rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+        }
+
+        .card-body {
+            padding: 2.5rem;
+        }
+
+        /* Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem 1.5rem;
+        }
+
+        .col-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .required-star {
+            color: #ef4444;
+        }
+
+        .form-control, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0 1rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control {
+            height: 48px;
+        }
+
+        .form-select {
+            height: 48px;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            appearance: none;
+            padding-right: 2.5rem;
+        }
+
+        .form-textarea {
+            padding: 0.75rem 1rem;
+            min-height: 80px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-control:hover, .form-select:hover, .form-textarea:hover {
+            border-color: #94a3b8;
+        }
+
+        .form-control:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.14);
+        }
+
+        .form-control::placeholder, .form-textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Radio & Checkbox Groups */
+        .options-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+
+        .option-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .option-label:has(input:checked) {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary-hover);
+            font-weight: 600;
+        }
+
+        /* Checkbox Grid for Hobbies */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 0.35rem;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.28);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.38);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Submission Feedback Box */
+        .toast-result {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: #f0fdf4;
+            border: 1.5px solid #86efac;
+            border-radius: var(--radius-md);
+            color: #14532d;
+            font-size: 0.925rem;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .toast-result h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .summary-table td {
+            padding: 6px 10px;
+            vertical-align: top;
+            border-bottom: 1px solid #dcfce7;
+        }
+
+        .summary-table td:first-child {
+            font-weight: 600;
+            width: 35%;
+            color: #166534;
+        }
+
+        @media (max-width: 640px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn-group {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-header">
+        <a href="index.html" class="nav-link">🏠 Trang chủ</a>
+        <a href="part1.html" class="nav-link">Phần 1: Form đơn giản</a>
+        <a href="part2.html" class="nav-link active">Phần 2: Form học viên</a>
+    </nav>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="badge">CodeGym Course</span>
+            <h1 class="card-title">Form Đăng Ký Học Viên</h1>
+            <p class="card-subtitle">Phần 2: Nhập đầy đủ thông tin để ghi danh vào khóa đào tạo lập trình</p>
+        </div>
+
+        <div class="card-body">
+            <form id="registrationForm" method="POST" action="part2.html">
+                <div class="form-grid">
+                    
+                    <!-- 1. Họ và tên: fullname -->
+                    <div class="form-group">
+                        <label for="fullname" class="form-label">
+                            Họ và tên <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="fullname" 
+                            name="fullname" 
+                            class="form-control" 
+                            placeholder="Nguyễn Văn A" 
+                            required 
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <!-- 2. Email: email -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            Email <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control" 
+                            placeholder="example@codegym.vn" 
+                            required 
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <!-- 3. Số điện thoại: phone -->
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            Số điện thoại <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            class="form-control" 
+                            placeholder="0912345678" 
+                            required 
+                            autocomplete="tel"
+                        >
+                    </div>
+
+                    <!-- 4. Ngày sinh: birthday -->
+                    <div class="form-group">
+                        <label for="birthday" class="form-label">
+                            Ngày sinh <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="birthday" 
+                            name="birthday" 
+                            class="form-control" 
+                            required
+                        >
+                    </div>
+
+                    <!-- 5. Giới tính: gender (Radio: Nam, Nữ, Khác) -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            Giới tính <span class="required-star">*</span>
+                        </label>
+                        <div class="options-row">
+                            <label class="option-label" for="gender_male">
+                                <input type="radio" id="gender_male" name="gender" value="Nam" required checked>
+                                <span>Nam</span>
+                            </label>
+                            <label class="option-label" for="gender_female">
+                                <input type="radio" id="gender_female" name="gender" value="Nữ">
+                                <span>Nữ</span>
+                            </label>
+                            <label class="option-label" for="gender_other">
+                                <input type="radio" id="gender_other" name="gender" value="Khác">
+                                <span>Khác</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 6. Hình thức học: study_type (Radio: Online, Offline) -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            Hình thức học <span class="required-star">*</span>
+                        </label>
+                        <div class="options-row">
+                            <label class="option-label" for="study_online">
+                                <input type="radio" id="study_online" name="study_type" value="Online" required checked>
+                                <span>🌐 Online</span>
+                            </label>
+                            <label class="option-label" for="study_offline">
+                                <input type="radio" id="study_offline" name="study_type" value="Offline">
+                                <span>🏫 Offline</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 7. Khóa học: course (Select: HTML & CSS, JavaScript, Java, Python) -->
+                    <div class="form-group col-full">
+                        <label for="course" class="form-label">
+                            Khóa học đăng ký <span class="required-star">*</span>
+                        </label>
+                        <select id="course" name="course" class="form-select" required>
+                            <option value="" disabled selected>-- Chọn khóa học muốn tham gia --</option>
+                            <option value="HTML & CSS">HTML & CSS</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                        </select>
+                    </div>
+
+                    <!-- 8. Sở thích: hobby (CheckBox) -->
+                    <div class="form-group col-full">
+                        <label class="form-label">Sở thích</label>
+                        <div class="checkbox-grid">
+                            <label class="option-label" for="hobby_coding">
+                                <input type="checkbox" id="hobby_coding" name="hobby" value="Lập trình">
+                                <span>💻 Lập trình</span>
+                            </label>
+                            <label class="option-label" for="hobby_reading">
+                                <input type="checkbox" id="hobby_reading" name="hobby" value="Đọc sách">
+                                <span>📚 Đọc sách</span>
+                            </label>
+                            <label class="option-label" for="hobby_gaming">
+                                <input type="checkbox" id="hobby_gaming" name="hobby" value="Chơi game">
+                                <span>🎮 Chơi game</span>
+                            </label>
+                            <label class="option-label" for="hobby_sports">
+                                <input type="checkbox" id="hobby_sports" name="hobby" value="Thể thao">
+                                <span>⚽ Thể thao</span>
+                            </label>
+                            <label class="option-label" for="hobby_music">
+                                <input type="checkbox" id="hobby_music" name="hobby" value="Âm nhạc">
+                                <span>🎵 Âm nhạc</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 9. Địa chỉ: address (Textarea) -->
+                    <div class="form-group col-full">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <textarea 
+                            id="address" 
+                            name="address" 
+                            class="form-textarea" 
+                            rows="2" 
+                            placeholder="Số nhà, đường, quận/huyện, tỉnh/thành phố..."
+                            autocomplete="street-address"
+                        ></textarea>
+                    </div>
+
+                    <!-- 10. Ghi chú: note (Textarea) -->
+                    <div class="form-group col-full">
+                        <label for="note" class="form-label">Ghi chú thêm</label>
+                        <textarea 
+                            id="note" 
+                            name="note" 
+                            class="form-textarea" 
+                            rows="3" 
+                            placeholder="Ví dụ: Mong muốn học lớp tối, cần hỗ trợ thêm tài liệu..."
+                        ></textarea>
+                    </div>
+
+                </div>
+
+                <!-- Nút Submit ("Đăng ký") & Nút Reset ("Nhập lại") -->
+                <div class="btn-group">
+                    <button type="reset" class="btn btn-secondary" id="btnReset">
+                        ↺ Nhập lại
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">
+                        Đăng ký ngay ➜
+                    </button>
+                </div>
+            </form>
+
+            <!-- Kết quả đăng ký sau khi submit -->
+            <div id="resultBox" class="toast-result">
+                <h4>🎉 Đăng ký học viên thành công!</h4>
+                <p>Thông tin ghi danh đã được lưu nhận:</p>
+                <table class="summary-table">
+                    <tr><td>Họ và tên:</td><td id="res_fullname"></td></tr>
+                    <tr><td>Email:</td><td id="res_email"></td></tr>
+                    <tr><td>Số điện thoại:</td><td id="res_phone"></td></tr>
+                    <tr><td>Ngày sinh:</td><td id="res_birthday"></td></tr>
+                    <tr><td>Giới tính:</td><td id="res_gender"></td></tr>
+                    <tr><td>Khóa học:</td><td id="res_course"></td></tr>
+                    <tr><td>Hình thức học:</td><td id="res_study_type"></td></tr>
+                    <tr><td>Sở thích:</td><td id="res_hobby"></td></tr>
+                    <tr><td>Địa chỉ:</td><td id="res_address"></td></tr>
+                    <tr><td>Ghi chú:</td><td id="res_note"></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const regForm = document.getElementById('registrationForm');
+        const resultBox = document.getElementById('resultBox');
+
+        regForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(regForm);
+            
+            document.getElementById('res_fullname').textContent = formData.get('fullname') || '—';
+            document.getElementById('res_email').textContent = formData.get('email') || '—';
+            document.getElementById('res_phone').textContent = formData.get('phone') || '—';
+            document.getElementById('res_birthday').textContent = formData.get('birthday') || '—';
+            document.getElementById('res_gender').textContent = formData.get('gender') || '—';
+            document.getElementById('res_course').textContent = formData.get('course') || '—';
+            document.getElementById('res_study_type').textContent = formData.get('study_type') || '—';
+            
+            const hobbies = formData.getAll('hobby');
+            document.getElementById('res_hobby').textContent = hobbies.length > 0 ? hobbies.join(', ') : 'Không có';
+            
+            document.getElementById('res_address').textContent = formData.get('address') || 'Không có';
+            document.getElementById('res_note').textContent = formData.get('note') || 'Không có';
+
+            resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        regForm.addEventListener('reset', function() {
+            resultBox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

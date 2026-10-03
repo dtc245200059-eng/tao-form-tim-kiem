@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Form Đơn Giản | CodeGym</title>
+    <title>Phần 1 - Tạo Form Đơn Giản | CodeGym</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -99,6 +99,7 @@
             padding: 2rem 2rem 1.8rem;
             color: #ffffff;
             text-align: center;
+            position: relative;
         }
 
         .badge {
@@ -119,11 +120,13 @@
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
+            letter-spacing: -0.01em;
         }
 
         .card-subtitle {
             font-size: 0.875rem;
             color: rgba(255, 255, 255, 0.85);
+            font-weight: 400;
         }
 
         .card-body {
@@ -170,6 +173,10 @@
             box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
         }
 
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+
         .checkbox-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -178,6 +185,7 @@
         }
 
         .checkbox-card {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -243,6 +251,10 @@
             transform: translateY(-1px);
         }
 
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
         .btn-secondary {
             background: #f1f5f9;
             color: #475569;
@@ -255,6 +267,11 @@
             transform: translateY(-1px);
         }
 
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Result Toast */
         .toast-result {
             display: none;
             margin-top: 1.5rem;
@@ -272,6 +289,13 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: #047857;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toast-result ul {
+            margin-left: 1.25rem;
         }
 
         @media (max-width: 480px) {
@@ -288,7 +312,7 @@
 
     <nav class="nav-header">
         <a href="index.html" class="nav-link">🏠 Trang chủ</a>
-        <a href="simpleform.html" class="nav-link active">Phần 1: Form đơn giản</a>
+        <a href="part1.html" class="nav-link active">Phần 1: Form đơn giản</a>
         <a href="part2.html" class="nav-link">Phần 2: Form học viên</a>
     </nav>
 
@@ -296,11 +320,11 @@
         <div class="card-header">
             <span class="badge">Bài tập CodeGym</span>
             <h1 class="card-title">Tạo Form Đơn Giản</h1>
-            <p class="card-subtitle">Phần 1: Khảo sát thông tin và sở thích</p>
+            <p class="card-subtitle">Phần 1: Khảo sát thông tin và sở thích cá nhân</p>
         </div>
 
         <div class="card-body">
-            <form id="simpleForm" method="GET" action="simpleform.html">
+            <form id="simpleForm" method="GET" action="part1.html">
                 <!-- Họ và tên: yourname -->
                 <div class="form-group">
                     <label for="yourname" class="form-label">
@@ -311,7 +335,7 @@
                         id="yourname" 
                         name="yourname" 
                         class="form-control" 
-                        placeholder="Nhập họ và tên của bạn"
+                        placeholder="Ví dụ: Nguyễn Văn An"
                         required
                         autocomplete="name"
                     >
@@ -320,14 +344,14 @@
                 <!-- Email: email -->
                 <div class="form-group">
                     <label for="email" class="form-label">
-                        Email <span class="required-star">*</span>
+                        Địa chỉ Email <span class="required-star">*</span>
                     </label>
                     <input 
                         type="email" 
                         id="email" 
                         name="email" 
                         class="form-control" 
-                        placeholder="Nhập địa chỉ email"
+                        placeholder="Ví dụ: nguyenvanan@gmail.com"
                         required
                         autocomplete="email"
                     >
@@ -335,35 +359,35 @@
 
                 <!-- Sở thích: hobby -->
                 <div class="form-group">
-                    <label class="form-label">Sở thích</label>
+                    <label class="form-label">Sở thích cá nhân</label>
                     <div class="checkbox-grid">
-                        <label class="checkbox-card" for="hobby_thethao">
-                            <input type="checkbox" id="hobby_thethao" name="hobby" value="Thể thao">
+                        <label class="checkbox-card" for="hobby_sports">
+                            <input type="checkbox" id="hobby_sports" name="hobby" value="Thể thao">
                             <span>⚽ Thể thao</span>
                         </label>
 
-                        <label class="checkbox-card" for="hobby_amnhac">
-                            <input type="checkbox" id="hobby_amnhac" name="hobby" value="Âm nhạc">
+                        <label class="checkbox-card" for="hobby_music">
+                            <input type="checkbox" id="hobby_music" name="hobby" value="Âm nhạc">
                             <span>🎵 Âm nhạc</span>
                         </label>
 
-                        <label class="checkbox-card" for="hobby_docsach">
-                            <input type="checkbox" id="hobby_docsach" name="hobby" value="Đọc sách">
+                        <label class="checkbox-card" for="hobby_reading">
+                            <input type="checkbox" id="hobby_reading" name="hobby" value="Đọc sách">
                             <span>📚 Đọc sách</span>
                         </label>
 
-                        <label class="checkbox-card" for="hobby_dulich">
-                            <input type="checkbox" id="hobby_dulich" name="hobby" value="Du lịch">
+                        <label class="checkbox-card" for="hobby_travel">
+                            <input type="checkbox" id="hobby_travel" name="hobby" value="Du lịch">
                             <span>✈️ Du lịch</span>
                         </label>
 
-                        <label class="checkbox-card" for="hobby_game">
-                            <input type="checkbox" id="hobby_game" name="hobby" value="Chơi game">
+                        <label class="checkbox-card" for="hobby_gaming">
+                            <input type="checkbox" id="hobby_gaming" name="hobby" value="Chơi game">
                             <span>🎮 Game</span>
                         </label>
 
-                        <label class="checkbox-card" for="hobby_laptrinh">
-                            <input type="checkbox" id="hobby_laptrinh" name="hobby" value="Lập trình">
+                        <label class="checkbox-card" for="hobby_coding">
+                            <input type="checkbox" id="hobby_coding" name="hobby" value="Lập trình">
                             <span>💻 Lập trình</span>
                         </label>
                     </div>
@@ -380,6 +404,7 @@
                 </div>
             </form>
 
+            <!-- Khung hiển thị thông tin khi submit thành công -->
             <div id="resultBox" class="toast-result">
                 <h4>✓ Gửi thông tin thành công!</h4>
                 <div id="resultContent"></div>
@@ -388,24 +413,32 @@
     </div>
 
     <script>
-        const form = document.getElementById('simpleForm');
+        const simpleForm = document.getElementById('simpleForm');
         const resultBox = document.getElementById('resultBox');
         const resultContent = document.getElementById('resultContent');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const data = new FormData(form);
-            const hobbies = data.getAll('hobby');
+        simpleForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Ngăn reload để hiển thị dữ liệu đẹp mắt
+
+            const formData = new FormData(simpleForm);
+            const yourname = formData.get('yourname');
+            const email = formData.get('email');
+            const hobbies = formData.getAll('hobby');
+
+            const hobbiesDisplay = hobbies.length > 0 ? hobbies.join(', ') : 'Chưa chọn';
+
             resultContent.innerHTML = `
-                <p><strong>Họ và tên:</strong> ${data.get('yourname')}</p>
-                <p><strong>Email:</strong> ${data.get('email')}</p>
-                <p><strong>Sở thích:</strong> ${hobbies.length > 0 ? hobbies.join(', ') : 'Chưa chọn'}</p>
+                <p><strong>Họ và tên:</strong> ${yourname}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Sở thích:</strong> ${hobbiesDisplay}</p>
             `;
             resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
-        form.addEventListener('reset', function() {
+        simpleForm.addEventListener('reset', function() {
             resultBox.style.display = 'none';
+            resultContent.innerHTML = '';
         });
     </script>
 </body>

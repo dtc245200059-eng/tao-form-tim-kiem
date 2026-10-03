@@ -1,11 +1,955 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <head>
-        <meta charset="utf-8">
-        <title>Sử dụng thẻ hình ảnh trong HTML</title>
-    </head>
-    <body>
-        <h1>Hình ảnh yêu thích của tôi</h1>
-        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=600" alt="Bức tranh nghệ thuật trừu tượng đầy màu sắc" width="500">
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tạo Form Đơn Giản & Đăng Ký Học Viên | CodeGym</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --secondary: #0284c7;
+            --secondary-hover: #0369a1;
+            --secondary-light: #f0f9ff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-card: 0 16px 36px -6px rgba(0, 0, 0, 0.08), 0 6px 12px -3px rgba(0, 0, 0, 0.03);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #eef2ff 0%, #f0fdf4 50%, #f8fafc 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1rem 4rem;
+        }
+
+        /* Top Hero Header */
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1rem;
+        }
+
+        .hero-badge span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        .hero-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Nav Pills / Quick links */
+        .quick-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .quick-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 9999px;
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .quick-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+        }
+
+        /* Tab Switcher Container */
+        .tabs-wrapper {
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 9999px;
+            display: inline-flex;
+            gap: 4px;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .card.card-sm {
+            max-width: 540px;
+        }
+
+        .card.card-lg {
+            max-width: 780px;
+        }
+
+        .card-header-part1 {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            padding: 2rem 2rem 1.75rem;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .card-header-part2 {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            padding: 2.2rem 2.5rem 1.9rem;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .card-body {
+            padding: 2.25rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.4rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem 1.5rem;
+        }
+
+        .col-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .required-star {
+            color: #ef4444;
+        }
+
+        .form-control, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0 1rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control {
+            height: 48px;
+        }
+
+        .form-select {
+            height: 48px;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.25rem;
+            appearance: none;
+            padding-right: 2.5rem;
+        }
+
+        .form-textarea {
+            padding: 0.75rem 1rem;
+            min-height: 80px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-control:hover, .form-select:hover, .form-textarea:hover {
+            border-color: #94a3b8;
+        }
+
+        .form-control:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+
+        .card-header-part2 ~ .card-body .form-control:focus,
+        .card-header-part2 ~ .card-body .form-select:focus,
+        .card-header-part2 ~ .card-body .form-textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+
+        /* Checkbox & Radio */
+        .options-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            gap: 10px;
+            margin-top: 0.35rem;
+        }
+
+        .option-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .option-label:hover {
+            border-color: #94a3b8;
+            background: #f8fafc;
+        }
+
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .card-header-part2 ~ .card-body .option-label input[type="radio"],
+        .card-header-part2 ~ .card-body .option-label input[type="checkbox"] {
+            accent-color: var(--secondary);
+        }
+
+        .option-label:has(input:checked) {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .card-header-part2 ~ .card-body .option-label:has(input:checked) {
+            border-color: var(--secondary);
+            background: var(--secondary-light);
+            color: var(--secondary-hover);
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary-p1 {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+
+        .btn-primary-p1:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary-p2 {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .btn-primary-p2:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        /* Result Cards */
+        .toast-result {
+            display: none;
+            margin-top: 1.75rem;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .toast-result-p1 {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .toast-result-p2 {
+            background: #f0fdf4;
+            border: 1.5px solid #86efac;
+            color: #14532d;
+        }
+
+        .toast-result h4 {
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .summary-table td {
+            padding: 6px 8px;
+            vertical-align: top;
+            border-bottom: 1px solid #dcfce7;
+        }
+
+        .summary-table td:first-child {
+            font-weight: 600;
+            width: 32%;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn-group {
+                flex-direction: column-reverse;
+            }
+            .hero-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-badge">
+            <span></span> CodeGym HTML Forms Assignment
+        </div>
+        <h1 class="hero-title">Bài Tập <span class="gradient-text">Tạo Form HTML</span></h1>
+        <p class="hero-desc">
+            Bao gồm đầy đủ Phần 1: Tạo form đơn giản &amp; Phần 2: Tạo form đăng ký học viên, đúng chuẩn yêu cầu kỹ thuật và thẩm mỹ hiện đại.
+        </p>
+    </header>
+
+    <!-- Navigation Shortcuts -->
+    <nav class="quick-nav">
+        <a href="part1.html" class="quick-btn" title="Mở trang Phần 1 riêng">📄 Mở riêng Phần 1</a>
+        <a href="part2.html" class="quick-btn" title="Mở trang Phần 2 riêng">📄 Mở riêng Phần 2</a>
+        <a href="simpleform.html" class="quick-btn" title="Mở simpleform.html">📄 simpleform.html</a>
+        <a href="https://github.com/dtc245200059-eng/tao-form-tim-kiem" target="_blank" rel="noopener" class="quick-btn">🌐 GitHub Repo</a>
+    </nav>
+
+    <!-- Interactive Tab Selector -->
+    <div class="tabs-wrapper">
+        <button type="button" class="tab-btn active" id="tab1Btn" onclick="switchTab('part1')">
+            📝 Phần 1: Form Đơn Giản
+        </button>
+        <button type="button" class="tab-btn" id="tab2Btn" onclick="switchTab('part2')">
+            🎓 Phần 2: Đăng Ký Học Viên
+        </button>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TAB PANEL 1: PHẦN 1 - FORM ĐƠN GIẢN           -->
+    <!-- ============================================== -->
+    <section id="panel-part1" class="tab-panel active">
+        <div class="card card-sm">
+            <div class="card-header-part1">
+                <span class="badge">Phần 1</span>
+                <h2 class="card-title">Tạo Form Đơn Giản</h2>
+                <p class="card-subtitle">Khảo sát thông tin và sở thích người dùng</p>
+            </div>
+
+            <div class="card-body">
+                <form id="formPart1" method="GET" action="part1.html">
+                    <!-- TextBox: yourname -->
+                    <div class="form-group">
+                        <label for="p1_yourname" class="form-label">
+                            Họ và tên <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="p1_yourname" 
+                            name="yourname" 
+                            class="form-control" 
+                            placeholder="Ví dụ: Trần Minh Đức"
+                            required 
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <!-- TextBox: email -->
+                    <div class="form-group">
+                        <label for="p1_email" class="form-label">
+                            Email <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="p1_email" 
+                            name="email" 
+                            class="form-control" 
+                            placeholder="Ví dụ: minhduc@gmail.com"
+                            required 
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <!-- CheckBoxes: hobby -->
+                    <div class="form-group">
+                        <label class="form-label">Sở thích cá nhân</label>
+                        <div class="checkbox-grid">
+                            <label class="option-label" for="p1_hobby_sports">
+                                <input type="checkbox" id="p1_hobby_sports" name="hobby" value="Thể thao">
+                                <span>⚽ Thể thao</span>
+                            </label>
+                            <label class="option-label" for="p1_hobby_music">
+                                <input type="checkbox" id="p1_hobby_music" name="hobby" value="Âm nhạc">
+                                <span>🎵 Âm nhạc</span>
+                            </label>
+                            <label class="option-label" for="p1_hobby_reading">
+                                <input type="checkbox" id="p1_hobby_reading" name="hobby" value="Đọc sách">
+                                <span>📚 Đọc sách</span>
+                            </label>
+                            <label class="option-label" for="p1_hobby_travel">
+                                <input type="checkbox" id="p1_hobby_travel" name="hobby" value="Du lịch">
+                                <span>✈️ Du lịch</span>
+                            </label>
+                            <label class="option-label" for="p1_hobby_gaming">
+                                <input type="checkbox" id="p1_hobby_gaming" name="hobby" value="Chơi game">
+                                <span>🎮 Chơi game</span>
+                            </label>
+                            <label class="option-label" for="p1_hobby_coding">
+                                <input type="checkbox" id="p1_hobby_coding" name="hobby" value="Lập trình">
+                                <span>💻 Lập trình</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Buttons: Submit & Reset -->
+                    <div class="btn-group">
+                        <button type="reset" class="btn btn-secondary">
+                            ↺ Nhập lại
+                        </button>
+                        <button type="submit" class="btn btn-primary-p1">
+                            Gửi thông tin ➜
+                        </button>
+                    </div>
+                </form>
+
+                <div id="p1_result" class="toast-result toast-result-p1">
+                    <h4>✓ Đã gửi thông tin Phần 1 thành công!</h4>
+                    <div id="p1_result_content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- TAB PANEL 2: PHẦN 2 - ĐĂNG KÝ HỌC VIÊN         -->
+    <!-- ============================================== -->
+    <section id="panel-part2" class="tab-panel">
+        <div class="card card-lg">
+            <div class="card-header-part2">
+                <span class="badge">Phần 2</span>
+                <h2 class="card-title">Form Đăng Ký Học Viên</h2>
+                <p class="card-subtitle">Điền đầy đủ thông tin để ghi danh vào khóa đào tạo lập trình</p>
+            </div>
+
+            <div class="card-body">
+                <form id="formPart2" method="POST" action="part2.html">
+                    <div class="form-grid">
+                        
+                        <!-- 1. Họ và tên: fullname -->
+                        <div class="form-group">
+                            <label for="p2_fullname" class="form-label">
+                                Họ và tên <span class="required-star">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="p2_fullname" 
+                                name="fullname" 
+                                class="form-control" 
+                                placeholder="Ví dụ: Lê Thị Mai" 
+                                required 
+                                autocomplete="name"
+                            >
+                        </div>
+
+                        <!-- 2. Email: email -->
+                        <div class="form-group">
+                            <label for="p2_email" class="form-label">
+                                Email <span class="required-star">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="p2_email" 
+                                name="email" 
+                                class="form-control" 
+                                placeholder="Ví dụ: mai.le@codegym.vn" 
+                                required 
+                                autocomplete="email"
+                            >
+                        </div>
+
+                        <!-- 3. Số điện thoại: phone -->
+                        <div class="form-group">
+                            <label for="p2_phone" class="form-label">
+                                Số điện thoại <span class="required-star">*</span>
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="p2_phone" 
+                                name="phone" 
+                                class="form-control" 
+                                placeholder="0987654321" 
+                                required 
+                                autocomplete="tel"
+                            >
+                        </div>
+
+                        <!-- 4. Ngày sinh: birthday -->
+                        <div class="form-group">
+                            <label for="p2_birthday" class="form-label">
+                                Ngày sinh <span class="required-star">*</span>
+                            </label>
+                            <input 
+                                type="date" 
+                                id="p2_birthday" 
+                                name="birthday" 
+                                class="form-control" 
+                                required
+                            >
+                        </div>
+
+                        <!-- 5. Giới tính: gender (Radio: Nam, Nữ, Khác) -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                Giới tính <span class="required-star">*</span>
+                            </label>
+                            <div class="options-row">
+                                <label class="option-label" for="p2_gender_male">
+                                    <input type="radio" id="p2_gender_male" name="gender" value="Nam" required checked>
+                                    <span>Nam</span>
+                                </label>
+                                <label class="option-label" for="p2_gender_female">
+                                    <input type="radio" id="p2_gender_female" name="gender" value="Nữ">
+                                    <span>Nữ</span>
+                                </label>
+                                <label class="option-label" for="p2_gender_other">
+                                    <input type="radio" id="p2_gender_other" name="gender" value="Khác">
+                                    <span>Khác</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 6. Hình thức học: study_type (Radio: Online, Offline) -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                Hình thức học <span class="required-star">*</span>
+                            </label>
+                            <div class="options-row">
+                                <label class="option-label" for="p2_study_online">
+                                    <input type="radio" id="p2_study_online" name="study_type" value="Online" required checked>
+                                    <span>🌐 Online</span>
+                                </label>
+                                <label class="option-label" for="p2_study_offline">
+                                    <input type="radio" id="p2_study_offline" name="study_type" value="Offline">
+                                    <span>🏫 Offline</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 7. Khóa học: course (Select) -->
+                        <div class="form-group col-full">
+                            <label for="p2_course" class="form-label">
+                                Khóa học đăng ký <span class="required-star">*</span>
+                            </label>
+                            <select id="p2_course" name="course" class="form-select" required>
+                                <option value="" disabled selected>-- Chọn khóa học bạn muốn tham gia --</option>
+                                <option value="HTML & CSS">HTML & CSS</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="Java">Java</option>
+                                <option value="Python">Python</option>
+                            </select>
+                        </div>
+
+                        <!-- 8. Sở thích: hobby (CheckBox) -->
+                        <div class="form-group col-full">
+                            <label class="form-label">Sở thích</label>
+                            <div class="checkbox-grid">
+                                <label class="option-label" for="p2_hobby_coding">
+                                    <input type="checkbox" id="p2_hobby_coding" name="hobby" value="Lập trình">
+                                    <span>💻 Lập trình</span>
+                                </label>
+                                <label class="option-label" for="p2_hobby_reading">
+                                    <input type="checkbox" id="p2_hobby_reading" name="hobby" value="Đọc sách">
+                                    <span>📚 Đọc sách</span>
+                                </label>
+                                <label class="option-label" for="p2_hobby_gaming">
+                                    <input type="checkbox" id="p2_hobby_gaming" name="hobby" value="Chơi game">
+                                    <span>🎮 Chơi game</span>
+                                </label>
+                                <label class="option-label" for="p2_hobby_sports">
+                                    <input type="checkbox" id="p2_hobby_sports" name="hobby" value="Thể thao">
+                                    <span>⚽ Thể thao</span>
+                                </label>
+                                <label class="option-label" for="p2_hobby_music">
+                                    <input type="checkbox" id="p2_hobby_music" name="hobby" value="Âm nhạc">
+                                    <span>🎵 Âm nhạc</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 9. Địa chỉ: address (Textarea) -->
+                        <div class="form-group col-full">
+                            <label for="p2_address" class="form-label">Địa chỉ</label>
+                            <textarea 
+                                id="p2_address" 
+                                name="address" 
+                                class="form-textarea" 
+                                rows="2" 
+                                placeholder="Nhập địa chỉ của bạn (số nhà, đường, quận/huyện, tỉnh/thành...)"
+                                autocomplete="street-address"
+                            ></textarea>
+                        </div>
+
+                        <!-- 10. Ghi chú: note (Textarea) -->
+                        <div class="form-group col-full">
+                            <label for="p2_note" class="form-label">Ghi chú</label>
+                            <textarea 
+                                id="p2_note" 
+                                name="note" 
+                                class="form-textarea" 
+                                rows="3" 
+                                placeholder="Ghi chú thêm về thời gian biểu hoặc nhu cầu đặc biệt..."
+                            ></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Nút Submit ("Đăng ký") & Nút Reset ("Nhập lại") -->
+                    <div class="btn-group">
+                        <button type="reset" class="btn btn-secondary">
+                            ↺ Nhập lại
+                        </button>
+                        <button type="submit" class="btn btn-primary-p2">
+                            Đăng ký ➜
+                        </button>
+                    </div>
+                </form>
+
+                <div id="p2_result" class="toast-result toast-result-p2">
+                    <h4>🎉 Đăng ký học viên thành công!</h4>
+                    <table class="summary-table">
+                        <tr><td>Họ và tên:</td><td id="p2_res_fullname"></td></tr>
+                        <tr><td>Email:</td><td id="p2_res_email"></td></tr>
+                        <tr><td>Số điện thoại:</td><td id="p2_res_phone"></td></tr>
+                        <tr><td>Ngày sinh:</td><td id="p2_res_birthday"></td></tr>
+                        <tr><td>Giới tính:</td><td id="p2_res_gender"></td></tr>
+                        <tr><td>Khóa học:</td><td id="p2_res_course"></td></tr>
+                        <tr><td>Hình thức:</td><td id="p2_res_study_type"></td></tr>
+                        <tr><td>Sở thích:</td><td id="p2_res_hobby"></td></tr>
+                        <tr><td>Địa chỉ:</td><td id="p2_res_address"></td></tr>
+                        <tr><td>Ghi chú:</td><td id="p2_res_note"></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 CodeGym Vietnam - Bài thực hành tạo form HTML5</p>
+    </footer>
+
+    <script>
+        // Switch between Part 1 and Part 2 tabs
+        function switchTab(tab) {
+            const btn1 = document.getElementById('tab1Btn');
+            const btn2 = document.getElementById('tab2Btn');
+            const panel1 = document.getElementById('panel-part1');
+            const panel2 = document.getElementById('panel-part2');
+
+            if (tab === 'part1') {
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+                panel1.classList.add('active');
+                panel2.classList.remove('active');
+            } else {
+                btn2.classList.add('active');
+                btn1.classList.remove('active');
+                panel2.classList.add('active');
+                panel1.classList.remove('active');
+            }
+        }
+
+        // Part 1 Form Handler
+        const formP1 = document.getElementById('formPart1');
+        const p1Result = document.getElementById('p1_result');
+        const p1ResultContent = document.getElementById('p1_result_content');
+
+        formP1.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = new FormData(formP1);
+            const hobbies = data.getAll('hobby');
+            p1ResultContent.innerHTML = `
+                <p><strong>Họ và tên:</strong> ${data.get('yourname')}</p>
+                <p><strong>Email:</strong> ${data.get('email')}</p>
+                <p><strong>Sở thích:</strong> ${hobbies.length > 0 ? hobbies.join(', ') : 'Chưa chọn'}</p>
+            `;
+            p1Result.style.display = 'block';
+        });
+
+        formP1.addEventListener('reset', function() {
+            p1Result.style.display = 'none';
+        });
+
+        // Part 2 Form Handler
+        const formP2 = document.getElementById('formPart2');
+        const p2Result = document.getElementById('p2_result');
+
+        formP2.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = new FormData(formP2);
+            document.getElementById('p2_res_fullname').textContent = data.get('fullname') || '—';
+            document.getElementById('p2_res_email').textContent = data.get('email') || '—';
+            document.getElementById('p2_res_phone').textContent = data.get('phone') || '—';
+            document.getElementById('p2_res_birthday').textContent = data.get('birthday') || '—';
+            document.getElementById('p2_res_gender').textContent = data.get('gender') || '—';
+            document.getElementById('p2_res_course').textContent = data.get('course') || '—';
+            document.getElementById('p2_res_study_type').textContent = data.get('study_type') || '—';
+            
+            const hobbies = data.getAll('hobby');
+            document.getElementById('p2_res_hobby').textContent = hobbies.length > 0 ? hobbies.join(', ') : 'Không có';
+            
+            document.getElementById('p2_res_address').textContent = data.get('address') || 'Không có';
+            document.getElementById('p2_res_note').textContent = data.get('note') || 'Không có';
+
+            p2Result.style.display = 'block';
+        });
+
+        formP2.addEventListener('reset', function() {
+            p2Result.style.display = 'none';
+        });
+    </script>
+</body>
 </html>
